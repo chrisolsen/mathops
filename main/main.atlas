@@ -1,0 +1,129 @@
+images {
+  image: "/assets/time-bar-bg.png"
+}
+images {
+  image: "/assets/timer-bar-fg.png"
+}
+images {
+  image: "/assets/timer-clock.png"
+}
+images {
+  image: "/assets/box-white.png"
+}
+images {
+  image: "/assets/button-back.png"
+}
+images {
+  image: "/assets/circle-question.png"
+}
+images {
+  image: "/assets/light-rays.png"
+}
+images {
+  image: "/assets/star.png"
+}
+images {
+  image: "/assets/top-bar.png"
+}
+images {
+  image: "/assets/buttons/button-blue-01.png"
+}
+images {
+  image: "/assets/buttons/button-green-01.png"
+}
+images {
+  image: "/assets/buttons/button-large-white-01.png"
+}
+images {
+  image: "/assets/light-green.png"
+}
+images {
+  image: "/assets/light-off.png"
+}
+images {
+  image: "/assets/light-red.png"
+}
+images {
+  image: "/assets/correct.png"
+}
+images {
+  image: "/assets/incorrect.png"
+}
+images {
+  image: "/assets/logo.png"
+}
+images {
+  image: "/assets/label-operator.png"
+}
+images {
+  image: "/assets/label-options.png"
+}
+images {
+  image: "/assets/slider-bar.png"
+}
+images {
+  image: "/assets/minus.png"
+}
+images {
+  image: "/assets/plus.png"
+}
+images {
+  image: "/assets/divide.png"
+}
+images {
+  image: "/assets/multiply.png"
+}
+images {
+  image: "/assets/radio-checked:normal.png"
+}
+images {
+  image: "/assets/radio-checked:pressed.png"
+}
+images {
+  image: "/assets/radio:normal.png"
+}
+images {
+  image: "/assets/radio:pressed.png"
+}
+animations {
+  id: "button_blue"
+  images {
+    image: "/assets/buttons/button-blue-01.png"
+  }
+  images {
+    image: "/assets/buttons/button-blue-02.png"
+  }
+  playback: PLAYBACK_ONCE_PINGPONG
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "button_green"
+  images {
+    image: "/assets/buttons/button-green-01.png"
+  }
+  images {
+    image: "/assets/buttons/button-green-02.png"
+  }
+  playback: PLAYBACK_ONCE_PINGPONG
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "button_white"
+  images {
+    image: "/assets/buttons/button-large-white-01.png"
+  }
+  images {
+    image: "/assets/buttons/button-large-white-02.png"
+  }
+  playback: PLAYBACK_ONCE_PINGPONG
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+margin: 1
+extrude_borders: 0
+inner_padding: 0

@@ -1,0 +1,16 @@
+function init(self)
+    msg.post('.', 'acquire_input_focus')
+    msg.post('@render:', 'use_fixed_fit_projection', { near = -1, far = 1 })
+    msg.post('#landing_proxy', 'load')
+end
+
+function on_message(self, message_id, message, sender)
+    if message_id == hash('proxy_loaded') then
+        -- New world is loaded. Init and enable it.
+        msg.post(sender, 'init')
+        msg.post(sender, 'enable')
+    elseif message_id == hash('load:game') then
+        -- msg.post('#game_proxy', 'load')
+        msg.post('#game_options', 'load')
+    end
+end

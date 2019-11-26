@@ -1,0 +1,139 @@
+function init(self)
+    math.randomseed(os.clock()*1e8)
+    msg.post('.', 'acquire_input_focus')
+    self.buttons = {
+        btn_choice_1 = 'white',
+        btn_choice_2 = 'white',
+        btn_choice_3 = 'white',
+        btn_choice_4 = 'white',
+    }
+
+    msg.post('#', 'game:reset')
+end
+
+function on_message(self, message_id, message, sender)
+    if hash('game:start') == message_id then
+       reset(self)
+    elseif hash('answer:touch') == message_id then
+        local name = message.name;
+        local text = gui.get_node(name..'/button_text')
+        local text_pos = gui.get_position(text)
+        local block_easing = vmath.vector({0,0,0,0, 1,1,1,1})
+        local num = gui.get_text(text)
+        local btn = gui.get_node(name..'/button')
+        local pos = gui.get_position(btn)
+
+        local post_answer = function(self, node)
+            msg.post('#', 'question:next')
+            gui.delete_node(node)
+        end
+
+        self.ready_for_answer = false
+
+        if tonumber(num) == self.answer then
+            local checkmark = gui.new_box_node(vmath.vector3(pos.x, pos.y, 0), vmath.vector3(205, 185, 0))
+            gui.set_texture(checkmark, 'main')
+            gui.play_flipbook(checkmark, "correct")
+            gui.animate(checkmark, 'scale', vmath.vector3(1.5,1.5,1), gui.EASING_LINEAR, 0.5)
+            gui.animate(checkmark, 'color', vmath.vector4(1,1,1,0), gui.EASING_LINEAR, 0.5, 0, post_answer)
+            self.correct_count = self.correct_count + 1
+        else
+            local xmark = gui.new_box_node(vmath.vector3(pos.x, pos.y, 0), vmath.vector3(155, 181, 0))
+            gui.set_texture(xmark, 'main')
+            gui.play_flipbook(xmark, "incorrect")
+            gui.animate(xmark, 'scale', vmath.vector3(1.5,1.5,1), gui.EASING_LINEAR, 0.5)
+            gui.animate(xmark, 'color', vmath.vector4(1,1,1,0), gui.EASING_LINEAR, 0.5, 0, post_answer)
+        end
+    elseif hash('question:next') == message_id then
+        local progress = gui.get_node('timer_bar_fg')
+        local size = gui.get_size(progress)
+        local new_width = size.x + (500 / self.question_count)
+        gui.animate(progress, 'size.x', vmath.vector3(new_width, size.y, 0), gui.EASING_LINEAR, 0.5)
+
+        if self.current_question == self.question_count then
+            msg.post('.', 'level_complete:show', { score = self.correct_count / self.question_count * 100 })
+        else
+            self.current_question = self.current_question + 1
+            self.ready_for_answer = true
+            get_question(self)
+        end
+    elseif hash('game:reset') == message_id then
+        self.question_count = 2
+        self.correct_count = 0
+        self.current_question = 1
+        self.ready_for_answer = true
+
+        local progress = gui.get_node('timer_bar_fg')
+        local size = gui.get_size(progress)
+        gui.animate(progress, 'size.x', vmath.vector3(50, size.y, 0), gui.EASING_LINEAR, 0.5)
+
+        get_question(self)
+    end
+end
+
+function on_input(self, action_id, action)
+    if hash('touch') == action_id and action.pressed then
+        if not self.ready_for_answer then
+            return
+        end
+        for name, color in pairs(self.buttons) do
+            local btn_bg = gui.get_node(name..'/button_bg')
+            if gui.pick_node(btn_bg, action.x, action.y) then
+                msg.post('#', 'answer:touch', { name=name })
+            end
+        end
+    end
+end
+
+-- Helpers
+
+function get_random(self)
+    local j = 0
+    while j < 99 do
+        j = j + 1
+        local r = math.random(self.answer - 10, self.answer + 10)
+        local valid = true
+        if r ~= self.answer and r ~= 0 then
+            for i=1,#self.options do
+                if self.options[i] == r then
+                    valid = false
+                    break
+                end
+            end
+            if valid then
+                if self.a > 0 and self.b > 0 and r < 0 then
+                    return -1 * r
+                end
+                return r
+            end
+        end
+    end
+end
+
+function get_question(self)
+    self.a = math.random(1, 10)
+    self.b = math.random(1, 10)
+    self.op = 'x'
+
+    local question = gui.get_node('box_question')
+    gui.set_text(question, self.a..' '..self.op..' '..self.b..' =')
+
+    if self.op == '+' then
+        self.answer = self.a + self.b
+    elseif self.op == 'x' then
+        self.answer = self.a * self.b
+    end
+    self.options = {}
+    local correct_pos = math.random(1,4)
+    for i=1,4 do
+        local val
+        if correct_pos == i then
+            val = self.answer
+        else
+            val = get_random(self)
+        end
+        table.insert(self.options, val)
+        local n = gui.get_node(hash('btn_choice_'..i..'/button_text'))
+        gui.set_text(n, val)
+    end
+end

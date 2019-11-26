@@ -1,0 +1,19 @@
+local ui = require("main/ui")
+
+function init(self)
+	msg.post('.', 'acquire_input_focus')
+	self.operator = '+'
+end
+
+function final(self)
+	msg.post('.', 'release_input_focus')
+end
+
+function on_input(self, action_id, action)
+	for i=0,1 do
+		self.operator = ui:radio('op_add', action_id, action, '+', self.operator)
+		self.operator = ui:radio('op_minus', action_id, action, '-', self.operator)
+		self.operator = ui:radio('op_times', action_id, action, 'x', self.operator)
+		self.operator = ui:radio('op_divide', action_id, action, '/', self.operator)
+	end
+end
