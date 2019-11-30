@@ -1,4 +1,4 @@
-local ui = require("main/ui")
+local dirtylarry = require("main/dirtylarry")
 
 function init(self)
 	msg.post('.', 'acquire_input_focus')
@@ -19,13 +19,13 @@ end
 function on_input(self, action_id, action)
 	-- run twice to ensure the previous value is cleared
 	for i=0,1 do
-		self.operator = ui:radio('op_add', action_id, action, '+', self.operator)
-		self.operator = ui:radio('op_minus', action_id, action, '-', self.operator)
-		self.operator = ui:radio('op_times', action_id, action, 'x', self.operator)
-		self.operator = ui:radio('op_divide', action_id, action, '/', self.operator)
+		self.operator = dirtylarry:radio('op_add', action_id, action, '+', self.operator)
+		self.operator = dirtylarry:radio('op_minus', action_id, action, '-', self.operator)
+		self.operator = dirtylarry:radio('op_times', action_id, action, 'x', self.operator)
+		self.operator = dirtylarry:radio('op_divide', action_id, action, '/', self.operator)
 	end
 
-	self.question_count = ui:slider('question_count_slider', action_id, action, self.question_count, 1, 50)
+	self.question_count = dirtylarry:slider('question_count_slider', action_id, action, self.question_count, 1, 50)
 	local count = gui.get_node('question_count:count')
 	gui.set_text(count, tostring(self.question_count))
 
