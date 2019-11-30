@@ -26,7 +26,7 @@ function on_message(self, message_id, message, sender)
 		local bg = gui.get_node('bg')
 
 		gui.animate(banner, 'position.y', 1600, gui.EASING_OUTELASTIC, 3, 0, function(self, node)
-			gui.set_position(node, vmath.vector3(320,-350,0))
+			gui.set_position(node, vmath.vector3(320,-400,0))
 		end)
 		gui.animate(bg, 'color', vmath.vector4(0,0,0,0), gui.EASING_LINEAR, 0.5, 0)
 		msg.post('.', "game:reset")
