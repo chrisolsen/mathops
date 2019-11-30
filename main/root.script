@@ -25,10 +25,10 @@ function on_message(self, message_id, message, sender)
             msg.post('#landing_proxy', 'unload')
 
         elseif self.state == 'options' and message.action == 'game:load'  then
-            msg.post('#game_proxy', 'load')
-            msg.post('#game_options', 'unload')
             self.game_settings = message.data
             self.state = 'game'
+            msg.post('#game_proxy', 'load')
+            msg.post('#game_options', 'unload')
 
         elseif self.state == 'game' and message.action == 'options:load'  then
             self.state = 'options'
@@ -44,7 +44,7 @@ function on_message(self, message_id, message, sender)
             msg.post('#landing_proxy', 'load')
 
         else
-            print('Invalid: state => '..self.state..' to => '..message.action)
+            print('Invalid: state => '..self.state..' action => '..message.action)
         end
     end
 end
