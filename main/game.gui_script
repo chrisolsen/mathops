@@ -133,18 +133,25 @@ function get_question(self)
     self.b = math.random(1, 10)
 
     local question = gui.get_node('box_question')
-    gui.set_text(question, self.a..' '..self.op..' '..self.b..' =')
 
     if self.op == '+' then
         self.answer = self.a + self.b
     elseif self.op == 'x' then
         self.answer = self.a * self.b
     elseif self.op == '-' then
+        if self.a < self.b then
+            local t = self.a
+            self.a = self.b
+            self.b = t
+        end
         self.answer = self.a - self.b
     elseif self.op == '/' then
         self.a = self.a * self.b
         self.answer = self.a / self.b
     end
+
+    gui.set_text(question, self.a..' '..self.op..' '..self.b..' =')
+
     self.options = {}
     local correct_pos = math.random(1,4)
     for i=1,4 do
