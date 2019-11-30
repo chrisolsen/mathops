@@ -1,7 +1,7 @@
 # TODOS
 
 - redesign the way the slider handles touch events
-- question count slider should not return values outside specified range
+x question count slider should not return values outside specified range
 - refactor UI form elements to use dirtylarry
 - prevent duplicate questions
 x minus questions answers should always be positive i.e. larger number on left

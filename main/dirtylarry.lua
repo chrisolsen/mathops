@@ -337,6 +337,13 @@ function dirtylarry.slider(self, node, action_id, action, value, min, max)
         local xp = round(action.x, bar_size.x / (max - min))
 
         value = dx / (bar_size.x - btn_dia) * (max - min) + min
+
+        if value < min then
+            value = min
+        elseif value > max then
+            value = max
+        end
+
         gui.set_position(btn, vmath.vector3(xp, btn_pos.y, btn_pos.z))
     end
     gui.delete_node(area)
