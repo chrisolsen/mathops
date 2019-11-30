@@ -111,7 +111,7 @@ function get_random(self)
         j = j + 1
         local r = math.random(self.answer - 10, self.answer + 10)
         local valid = true
-        if r ~= self.answer and r ~= 0 then
+        if r ~= self.answer and r > 0 then
             for i=1,#self.options do
                 if self.options[i] == r then
                     valid = false
