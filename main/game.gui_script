@@ -7,13 +7,25 @@ function init(self)
         btn_choice_3 = 'white',
         btn_choice_4 = 'white',
     }
-
-    msg.post('#', 'game:reset')
+    msg.post('default:/root#root', 'action', {
+        action = 'game:settings'
+    })
 end
 
 function on_message(self, message_id, message, sender)
     if hash('game:start') == message_id then
-       reset(self)
+        self.question_count = message.question_count
+        self.op = message.operator
+        self.correct_count = 0
+        self.current_question = 1
+        self.ready_for_answer = true
+
+        local progress = gui.get_node('timer_bar_fg')
+        local size = gui.get_size(progress)
+        gui.animate(progress, 'size.x', vmath.vector3(50, size.y, 0), gui.EASING_LINEAR, 0.5)
+
+        get_question(self)
+
     elseif hash('answer:touch') == message_id then
         local name = message.name;
         local text = gui.get_node(name..'/button_text')
@@ -58,7 +70,6 @@ function on_message(self, message_id, message, sender)
             get_question(self)
         end
     elseif hash('game:reset') == message_id then
-        self.question_count = 2
         self.correct_count = 0
         self.current_question = 1
         self.ready_for_answer = true
@@ -76,10 +87,17 @@ function on_input(self, action_id, action)
         if not self.ready_for_answer then
             return
         end
+        local back = gui.get_node('topbar/topbar_back')
+        if gui.pick_node(back, action.x, action.y) then
+			msg.post('default:/root#root', 'action', { action = 'options:load' })
+            return
+        end
+
         for name, color in pairs(self.buttons) do
             local btn_bg = gui.get_node(name..'/button_bg')
             if gui.pick_node(btn_bg, action.x, action.y) then
                 msg.post('#', 'answer:touch', { name=name })
+                return
             end
         end
     end
@@ -113,7 +131,6 @@ end
 function get_question(self)
     self.a = math.random(1, 10)
     self.b = math.random(1, 10)
-    self.op = 'x'
 
     local question = gui.get_node('box_question')
     gui.set_text(question, self.a..' '..self.op..' '..self.b..' =')
@@ -122,6 +139,10 @@ function get_question(self)
         self.answer = self.a + self.b
     elseif self.op == 'x' then
         self.answer = self.a * self.b
+    elseif self.op == '-' then
+        self.answer = self.a - self.b
+    elseif self.op == '/' then
+        self.answer = self.a / self.b
     end
     self.options = {}
     local correct_pos = math.random(1,4)

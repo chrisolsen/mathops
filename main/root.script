@@ -1,0 +1,50 @@
+function init(self)
+    msg.post('.', 'acquire_input_focus')
+    msg.post('@render:', 'use_fixed_fit_projection', { near = -1, far = 1 })
+    msg.post('#landing_proxy', 'load')
+
+    -- this could be later extracted into a *store*
+    self.game_settings = nil
+
+    -- STATES
+    self.state = 'landing'
+end
+
+function on_message(self, message_id, message, sender)
+    if message_id == hash('proxy_loaded') then
+        msg.post(sender, 'init')
+        msg.post(sender, 'enable')
+        return
+    end
+
+    -- State handling
+    if hash('action') == message_id then
+        if self.state == 'landing' and message.action == 'options:load'  then
+            self.state = 'options'
+            msg.post('#game_options', 'load')
+            msg.post('#landing_proxy', 'unload')
+
+        elseif self.state == 'options' and message.action == 'game:load'  then
+            msg.post('#game_proxy', 'load')
+            msg.post('#game_options', 'unload')
+            self.game_settings = message.data
+            self.state = 'game'
+
+        elseif self.state == 'game' and message.action == 'options:load'  then
+            self.state = 'options'
+            msg.post('#game_options', 'load')
+            msg.post('#game_proxy', 'unload')
+
+        elseif self.state == 'game' and message.action == 'game:settings'  then
+            msg.post('game:/guis#game', 'game:start', self.game_settings)
+
+        elseif self.state == 'options' and message.action == 'landing:load'  then
+            self.state = 'landing'
+            msg.post('#game_options', 'unload')
+            msg.post('#landing_proxy', 'load')
+
+        else
+            print('Invalid: state => '..self.state..' to => '..message.action)
+        end
+    end
+end
