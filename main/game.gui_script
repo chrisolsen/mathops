@@ -142,6 +142,7 @@ function get_question(self)
     elseif self.op == '-' then
         self.answer = self.a - self.b
     elseif self.op == '/' then
+        self.a = self.a * self.b
         self.answer = self.a / self.b
     end
     self.options = {}
