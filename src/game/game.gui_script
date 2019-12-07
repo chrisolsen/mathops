@@ -129,8 +129,8 @@ function get_random(self)
 end
 
 function get_question(self)
-    self.a = math.random(1, 10)
-    self.b = math.random(1, 10)
+    self.a = math.random(2, 10)
+    self.b = math.random(2, 10)
 
     local question = gui.get_node('box_question')
 
@@ -139,6 +139,7 @@ function get_question(self)
     elseif self.op == 'x' then
         self.answer = self.a * self.b
     elseif self.op == '-' then
+        -- make sure the large number is on the left
         if self.a < self.b then
             local t = self.a
             self.a = self.b

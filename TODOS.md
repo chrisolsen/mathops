@@ -8,9 +8,10 @@
 - add some background sound
 - add sound to button clicks
 - add button transition images for pressed state
-- better organize files
 
 # DONE
+- don't show  ? x 1 questions
+- better organize files
 - subtraction questions need to use higher numbers
 - question count slider should not return values outside specified range
 - minus questions answers should always be positive i.e. larger number on left
