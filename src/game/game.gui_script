@@ -7,6 +7,7 @@ function init(self)
         btn_choice_3 = 'white',
         btn_choice_4 = 'white',
     }
+    self.question_log = {};
     msg.post('default:/root#root', 'action', {
         action = 'game:settings'
     })
@@ -24,7 +25,7 @@ function on_message(self, message_id, message, sender)
         local size = gui.get_size(progress)
         gui.animate(progress, 'size.x', vmath.vector3(50, size.y, 0), gui.EASING_LINEAR, 0.5)
 
-        get_question(self)
+        generate_question(self)
 
     elseif hash('answer:touch') == message_id then
         local name = message.name;
@@ -34,6 +35,7 @@ function on_message(self, message_id, message, sender)
         local num = gui.get_text(text)
         local btn = gui.get_node(name..'/button')
         local pos = gui.get_position(btn)
+        local question_key = self.a..self.op..self.b
 
         local post_answer = function(self, node)
             msg.post('#', 'question:next')
@@ -48,13 +50,17 @@ function on_message(self, message_id, message, sender)
             gui.play_flipbook(checkmark, "correct")
             gui.animate(checkmark, 'scale', vmath.vector3(1.5,1.5,1), gui.EASING_LINEAR, 0.5)
             gui.animate(checkmark, 'color', vmath.vector4(1,1,1,0), gui.EASING_LINEAR, 0.5, 0, post_answer)
+
             self.correct_count = self.correct_count + 1
+            self.question_log[question_key] = true
         else
             local xmark = gui.new_box_node(vmath.vector3(pos.x, pos.y, 0), vmath.vector3(155, 181, 0))
             gui.set_texture(xmark, 'main')
             gui.play_flipbook(xmark, "incorrect")
             gui.animate(xmark, 'scale', vmath.vector3(1.5,1.5,1), gui.EASING_LINEAR, 0.5)
             gui.animate(xmark, 'color', vmath.vector4(1,1,1,0), gui.EASING_LINEAR, 0.5, 0, post_answer)
+
+            self.question_log[question_key] = false
         end
     elseif hash('question:next') == message_id then
         local progress = gui.get_node('timer_bar_fg')
@@ -67,18 +73,19 @@ function on_message(self, message_id, message, sender)
         else
             self.current_question = self.current_question + 1
             self.ready_for_answer = true
-            get_question(self)
+            generate_question(self)
         end
     elseif hash('game:reset') == message_id then
         self.correct_count = 0
         self.current_question = 1
         self.ready_for_answer = true
+        self.question_log = {};
 
         local progress = gui.get_node('timer_bar_fg')
         local size = gui.get_size(progress)
         gui.animate(progress, 'size.x', vmath.vector3(50, size.y, 0), gui.EASING_LINEAR, 0.5)
 
-        get_question(self)
+        generate_question(self)
     end
 end
 
@@ -89,7 +96,7 @@ function on_input(self, action_id, action)
         end
         local back = gui.get_node('topbar/topbar_back')
         if gui.pick_node(back, action.x, action.y) then
-			msg.post('default:/root#root', 'action', { action = 'options:load' })
+            msg.post('default:/root#root', 'action', { action = 'options:load' })
             return
         end
 
@@ -128,9 +135,43 @@ function get_random(self)
     end
 end
 
-function get_question(self)
-    self.a = math.random(2, 10)
-    self.b = math.random(2, 10)
+function generate_question(self)
+
+    -- question was already asked and user got it right
+    local _exists = function(table, key)
+        for k in pairs(table) do
+            if k == key and table[key] then return true end
+        end
+        return false
+    end
+
+    local _len = function(table)
+       local c = 0
+       for k in pairs(table) do c = c + 1 end
+       return c
+    end
+
+    local _get_question = function()
+        local a = math.random(2, 10)
+        local b = math.random(2, 10)
+        local exists = true
+        local question = ''
+
+        while exists do
+            question = a..self.op..b
+            exists = _exists(self.question_log, question)
+            if exists then
+                a = math.random(2, 10)
+                b = math.random(2, 10)
+            end
+        end
+
+        self.question_log[question] = false
+
+        return a, b
+    end
+
+    self.a, self.b = _get_question()
 
     local question = gui.get_node('box_question')
 
