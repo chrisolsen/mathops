@@ -144,6 +144,7 @@ function get_question(self)
             self.a = self.b
             self.b = t
         end
+        self.a = self.a + self.b
         self.answer = self.a - self.b
     elseif self.op == '/' then
         self.a = self.a * self.b
