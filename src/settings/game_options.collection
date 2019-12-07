@@ -1,10 +1,10 @@
-name: "landing"
+name: "game_options"
 scale_along_z: 0
 embedded_instances {
-  id: "go"
+  id: "game_options"
   data: "components {\n"
-  "  id: \"landing\"\n"
-  "  component: \"/main/landing.gui\"\n"
+  "  id: \"options\"\n"
+  "  component: \"/src/settings/options.gui\"\n"
   "  position {\n"
   "    x: 0.0\n"
   "    y: 0.0\n"

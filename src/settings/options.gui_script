@@ -1,4 +1,4 @@
-local dirtylarry = require("main/dirtylarry")
+local dirtylarry = require("src/res/dirtylarry")
 
 function init(self)
 	msg.post('.', 'acquire_input_focus')

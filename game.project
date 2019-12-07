@@ -2,7 +2,7 @@
 title = MathOps
 
 [bootstrap]
-main_collection = /main/root.collectionc
+main_collection = /src/main/root.collectionc
 
 [input]
 game_binding = /input/game.input_bindingc

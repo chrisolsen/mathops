@@ -1,15 +1,15 @@
-script: "/main/options.gui_script"
+script: "/src/settings/options.gui_script"
 fonts {
   name: "main_medium"
-  font: "/main/main_medium.font"
+  font: "/src/fonts/main_medium.font"
 }
 fonts {
   name: "main_small"
-  font: "/main/main_small.font"
+  font: "/src/fonts/main_small.font"
 }
 textures {
   name: "main"
-  texture: "/main/main.atlas"
+  texture: "/src/res/main.atlas"
 }
 background_color {
   x: 0.0
@@ -53,7 +53,7 @@ nodes {
   layer: ""
   inherit_alpha: true
   alpha: 1.0
-  template: "/main/page.gui"
+  template: "/src/res/page.gui"
   template_node_child: false
 }
 nodes {
@@ -596,7 +596,7 @@ nodes {
   layer: ""
   inherit_alpha: true
   alpha: 1.0
-  template: "/main/radiobutton.gui"
+  template: "/src/res/radiobutton.gui"
   template_node_child: false
 }
 nodes {
@@ -706,6 +706,7 @@ nodes {
   clipping_visible: true
   clipping_inverted: false
   alpha: 1.0
+  overridden_fields: 9
   template_node_child: true
   size_mode: SIZE_MODE_AUTO
 }
@@ -802,7 +803,7 @@ nodes {
   layer: ""
   inherit_alpha: true
   alpha: 1.0
-  template: "/main/radiobutton.gui"
+  template: "/src/res/radiobutton.gui"
   template_node_child: false
 }
 nodes {
@@ -949,7 +950,7 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "main/radio:normal"
+  texture: "main/radio-checked:normal"
   id: "op_minus/btn"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
@@ -968,6 +969,7 @@ nodes {
   clipping_visible: true
   clipping_inverted: false
   alpha: 1.0
+  overridden_fields: 9
   template_node_child: true
   size_mode: SIZE_MODE_AUTO
 }
@@ -1008,7 +1010,7 @@ nodes {
   layer: ""
   inherit_alpha: true
   alpha: 1.0
-  template: "/main/radiobutton.gui"
+  template: "/src/res/radiobutton.gui"
   template_node_child: false
 }
 nodes {
@@ -1174,6 +1176,7 @@ nodes {
   clipping_visible: true
   clipping_inverted: false
   alpha: 1.0
+  overridden_fields: 9
   template_node_child: true
   size_mode: SIZE_MODE_AUTO
 }
@@ -1214,7 +1217,7 @@ nodes {
   layer: ""
   inherit_alpha: true
   alpha: 1.0
-  template: "/main/radiobutton.gui"
+  template: "/src/res/radiobutton.gui"
   template_node_child: false
 }
 nodes {
@@ -1380,6 +1383,7 @@ nodes {
   clipping_visible: true
   clipping_inverted: false
   alpha: 1.0
+  overridden_fields: 9
   template_node_child: true
   size_mode: SIZE_MODE_AUTO
 }
@@ -1765,7 +1769,7 @@ nodes {
   layer: ""
   inherit_alpha: true
   alpha: 1.0
-  template: "/main/slider.gui"
+  template: "/src/res/slider.gui"
   template_node_child: false
 }
 nodes {
@@ -1970,7 +1974,7 @@ nodes {
   layer: ""
   inherit_alpha: true
   alpha: 1.0
-  template: "/main/button.gui"
+  template: "/src/res/button.gui"
   template_node_child: false
 }
 nodes {
