@@ -4,12 +4,12 @@
 - refactor UI form elements to use dirtylarry
 - prevent duplicate questions
 - show the user the correct answer when the choose the wrong answer (do it for both)
-- add smoother transitions between screens (including landing page load)
 - add some background sound
 - add sound to button clicks
 - add button transition images for pressed state
 
 # DONE
+- add smoother transitions between screens (including landing page load)
 - don't show  ? x 1 questions
 - better organize files
 - subtraction questions need to use higher numbers

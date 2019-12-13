@@ -11,6 +11,10 @@ function init(self)
     msg.post('default:/root#root', 'action', {
         action = 'game:settings'
     })
+
+	local this = gui.get_node("game:root")
+	gui.set_color(this, vmath.vector4(0))
+	gui.animate(this, gui.PROP_COLOR, vmath.vector4(1,1,1,1), gui.EASING_OUTEXPO, .5, 0)
 end
 
 function on_message(self, message_id, message, sender)

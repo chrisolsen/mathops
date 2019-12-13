@@ -131,8 +131,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 200.0
-    y: 100.0
+    x: 0.0
+    y: 0.0
     z: 0.0
     w: 1.0
   }
@@ -162,9 +162,9 @@ nodes {
   clipping_mode: CLIPPING_MODE_NONE
   clipping_visible: true
   clipping_inverted: false
-  alpha: 0.0
+  alpha: 1.0
   template_node_child: true
-  size_mode: SIZE_MODE_AUTO
+  size_mode: SIZE_MODE_MANUAL
 }
 nodes {
   position {
@@ -207,7 +207,7 @@ nodes {
   adjust_mode: ADJUST_MODE_FIT
   parent: "topbar/topbar"
   layer: ""
-  inherit_alpha: false
+  inherit_alpha: true
   slice9 {
     x: 0.0
     y: 0.0
@@ -277,7 +277,7 @@ nodes {
   line_break: false
   parent: "topbar/topbar"
   layer: ""
-  inherit_alpha: false
+  inherit_alpha: true
   alpha: 1.0
   outline_alpha: 1.0
   shadow_alpha: 1.0
@@ -326,7 +326,7 @@ nodes {
   adjust_mode: ADJUST_MODE_FIT
   parent: "topbar/topbar"
   layer: ""
-  inherit_alpha: false
+  inherit_alpha: true
   slice9 {
     x: 0.0
     y: 0.0
@@ -339,6 +339,60 @@ nodes {
   alpha: 1.0
   template_node_child: true
   size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  type: TYPE_BOX
+  blend_mode: BLEND_MODE_ALPHA
+  texture: ""
+  id: "game:root"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_NONE
+  pivot: PIVOT_CENTER
+  adjust_mode: ADJUST_MODE_FIT
+  layer: ""
+  inherit_alpha: true
+  slice9 {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 0.0
+  }
+  clipping_mode: CLIPPING_MODE_NONE
+  clipping_visible: true
+  clipping_inverted: false
+  alpha: 1.0
+  template_node_child: false
+  size_mode: SIZE_MODE_MANUAL
 }
 nodes {
   position {
@@ -373,6 +427,7 @@ nodes {
   }
   type: TYPE_TEMPLATE
   id: "btn_choice_1"
+  parent: "game:root"
   layer: ""
   inherit_alpha: true
   alpha: 1.0
@@ -399,8 +454,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 200.0
-    y: 100.0
+    x: 0.0
+    y: 0.0
     z: 0.0
     w: 1.0
   }
@@ -430,9 +485,9 @@ nodes {
   clipping_mode: CLIPPING_MODE_NONE
   clipping_visible: true
   clipping_inverted: false
-  alpha: 0.0
+  alpha: 1.0
   template_node_child: true
-  size_mode: SIZE_MODE_AUTO
+  size_mode: SIZE_MODE_MANUAL
 }
 nodes {
   position {
@@ -475,7 +530,7 @@ nodes {
   adjust_mode: ADJUST_MODE_FIT
   parent: "btn_choice_1/button"
   layer: ""
-  inherit_alpha: false
+  inherit_alpha: true
   slice9 {
     x: 50.0
     y: 50.0
@@ -546,7 +601,7 @@ nodes {
   line_break: false
   parent: "btn_choice_1/button"
   layer: ""
-  inherit_alpha: false
+  inherit_alpha: true
   alpha: 1.0
   outline_alpha: 1.0
   shadow_alpha: 1.0
@@ -590,6 +645,7 @@ nodes {
   }
   type: TYPE_TEMPLATE
   id: "btn_choice_2"
+  parent: "game:root"
   layer: ""
   inherit_alpha: true
   alpha: 1.0
@@ -616,8 +672,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 200.0
-    y: 100.0
+    x: 0.0
+    y: 0.0
     z: 0.0
     w: 1.0
   }
@@ -647,9 +703,9 @@ nodes {
   clipping_mode: CLIPPING_MODE_NONE
   clipping_visible: true
   clipping_inverted: false
-  alpha: 0.0
+  alpha: 1.0
   template_node_child: true
-  size_mode: SIZE_MODE_AUTO
+  size_mode: SIZE_MODE_MANUAL
 }
 nodes {
   position {
@@ -692,7 +748,7 @@ nodes {
   adjust_mode: ADJUST_MODE_FIT
   parent: "btn_choice_2/button"
   layer: ""
-  inherit_alpha: false
+  inherit_alpha: true
   slice9 {
     x: 50.0
     y: 50.0
@@ -763,7 +819,7 @@ nodes {
   line_break: false
   parent: "btn_choice_2/button"
   layer: ""
-  inherit_alpha: false
+  inherit_alpha: true
   alpha: 1.0
   outline_alpha: 1.0
   shadow_alpha: 1.0
@@ -807,6 +863,7 @@ nodes {
   }
   type: TYPE_TEMPLATE
   id: "btn_choice_3"
+  parent: "game:root"
   layer: ""
   inherit_alpha: true
   alpha: 1.0
@@ -833,8 +890,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 200.0
-    y: 100.0
+    x: 0.0
+    y: 0.0
     z: 0.0
     w: 1.0
   }
@@ -864,9 +921,9 @@ nodes {
   clipping_mode: CLIPPING_MODE_NONE
   clipping_visible: true
   clipping_inverted: false
-  alpha: 0.0
+  alpha: 1.0
   template_node_child: true
-  size_mode: SIZE_MODE_AUTO
+  size_mode: SIZE_MODE_MANUAL
 }
 nodes {
   position {
@@ -909,7 +966,7 @@ nodes {
   adjust_mode: ADJUST_MODE_FIT
   parent: "btn_choice_3/button"
   layer: ""
-  inherit_alpha: false
+  inherit_alpha: true
   slice9 {
     x: 50.0
     y: 50.0
@@ -980,7 +1037,7 @@ nodes {
   line_break: false
   parent: "btn_choice_3/button"
   layer: ""
-  inherit_alpha: false
+  inherit_alpha: true
   alpha: 1.0
   outline_alpha: 1.0
   shadow_alpha: 1.0
@@ -1024,6 +1081,7 @@ nodes {
   }
   type: TYPE_TEMPLATE
   id: "btn_choice_4"
+  parent: "game:root"
   layer: ""
   inherit_alpha: true
   alpha: 1.0
@@ -1050,8 +1108,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 200.0
-    y: 100.0
+    x: 0.0
+    y: 0.0
     z: 0.0
     w: 1.0
   }
@@ -1081,9 +1139,9 @@ nodes {
   clipping_mode: CLIPPING_MODE_NONE
   clipping_visible: true
   clipping_inverted: false
-  alpha: 0.0
+  alpha: 1.0
   template_node_child: true
-  size_mode: SIZE_MODE_AUTO
+  size_mode: SIZE_MODE_MANUAL
 }
 nodes {
   position {
@@ -1126,7 +1184,7 @@ nodes {
   adjust_mode: ADJUST_MODE_FIT
   parent: "btn_choice_4/button"
   layer: ""
-  inherit_alpha: false
+  inherit_alpha: true
   slice9 {
     x: 50.0
     y: 50.0
@@ -1197,7 +1255,7 @@ nodes {
   line_break: false
   parent: "btn_choice_4/button"
   layer: ""
-  inherit_alpha: false
+  inherit_alpha: true
   alpha: 1.0
   outline_alpha: 1.0
   shadow_alpha: 1.0
@@ -1247,6 +1305,7 @@ nodes {
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER
   adjust_mode: ADJUST_MODE_FIT
+  parent: "game:root"
   layer: ""
   inherit_alpha: true
   slice9 {
@@ -1474,6 +1533,7 @@ nodes {
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER
   adjust_mode: ADJUST_MODE_FIT
+  parent: "game:root"
   layer: ""
   inherit_alpha: true
   slice9 {

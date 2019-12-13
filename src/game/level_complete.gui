@@ -484,8 +484,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 200.0
-    y: 100.0
+    x: 0.0
+    y: 0.0
     z: 0.0
     w: 1.0
   }
@@ -515,9 +515,9 @@ nodes {
   clipping_mode: CLIPPING_MODE_NONE
   clipping_visible: true
   clipping_inverted: false
-  alpha: 0.0
+  alpha: 1.0
   template_node_child: true
-  size_mode: SIZE_MODE_AUTO
+  size_mode: SIZE_MODE_MANUAL
 }
 nodes {
   position {
@@ -560,7 +560,7 @@ nodes {
   adjust_mode: ADJUST_MODE_FIT
   parent: "btn_play_again/button"
   layer: ""
-  inherit_alpha: false
+  inherit_alpha: true
   slice9 {
     x: 50.0
     y: 50.0
@@ -630,7 +630,7 @@ nodes {
   line_break: false
   parent: "btn_play_again/button"
   layer: ""
-  inherit_alpha: false
+  inherit_alpha: true
   alpha: 1.0
   outline_alpha: 1.0
   shadow_alpha: 1.0
