@@ -19,7 +19,7 @@ embedded_instances {
   "}\n"
   "components {\n"
   "  id: \"level_complete\"\n"
-  "  component: \"/src/game/level_complete.gui\"\n"
+  "  component: \"/src/main/level_complete.gui\"\n"
   "  position {\n"
   "    x: 0.0\n"
   "    y: 0.0\n"
