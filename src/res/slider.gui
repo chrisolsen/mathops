@@ -96,7 +96,7 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "main/radio-checked:normal"
+  texture: "main/radio-checked__normal"
   id: "slider:btn"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE

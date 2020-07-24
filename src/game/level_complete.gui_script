@@ -1,6 +1,6 @@
 function on_message(self, message_id, message, sender)
-    if hash('level_complete:show') == message_id then
-        local banner = gui.get_node('banner')
+	if hash('level_complete:show') == message_id then
+		local banner = gui.get_node('banner')
 		local score = gui.get_node('banner_score')
 		local bg = gui.get_node('bg')
 
@@ -35,11 +35,9 @@ end
 
 function on_input(self, action_id, action)
 	local play_again = gui.get_node('btn_play_again/button')
-	print('button: on_input')
-    if hash('touch') == action_id and action.pressed then
-		print('button: action')
+	print(play_again)
+	if hash('touch') == action_id and action.pressed then
 		if gui.pick_node(play_again, action.x, action.y) then
-			print('button: touch')
 			msg.post("#", "play_again")
 		end
 	end

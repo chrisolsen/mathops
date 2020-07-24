@@ -1,97 +1,128 @@
 images {
   image: "/assets/images/time-bar-bg.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/images/timer-bar-fg.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/images/timer-clock.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/images/box-white.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/images/button-back.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/images/circle-question.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/images/light-rays.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/images/star.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/images/top-bar.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/buttons/button-blue-01.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/buttons/button-green-01.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/buttons/button-large-white-01.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/images/light-green.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/images/light-off.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/images/light-red.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/images/correct.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/images/incorrect.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/images/logo.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/images/label-operator.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/images/label-options.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/images/slider-bar.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/images/minus.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/images/plus.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/images/divide.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/assets/images/multiply.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/images/radio-checked:normal.png"
+  image: "/assets/images/radio-checked__normal.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/images/radio-checked:pressed.png"
+  image: "/assets/images/radio-checked__pressed.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/images/radio:normal.png"
+  image: "/assets/images/radio-normal.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/images/radio:pressed.png"
+  image: "/assets/images/radio-pressed.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 animations {
   id: "button_blue"
   images {
     image: "/assets/buttons/button-blue-01.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   images {
     image: "/assets/buttons/button-blue-02.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   playback: PLAYBACK_ONCE_PINGPONG
   fps: 10
@@ -102,9 +133,11 @@ animations {
   id: "button_green"
   images {
     image: "/assets/buttons/button-green-01.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   images {
     image: "/assets/buttons/button-green-02.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   playback: PLAYBACK_ONCE_PINGPONG
   fps: 10
@@ -115,9 +148,11 @@ animations {
   id: "button_white"
   images {
     image: "/assets/buttons/button-large-white-01.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   images {
     image: "/assets/buttons/button-large-white-02.png"
+    sprite_trim_mode: SPRITE_TRIM_MODE_OFF
   }
   playback: PLAYBACK_ONCE_PINGPONG
   fps: 10
