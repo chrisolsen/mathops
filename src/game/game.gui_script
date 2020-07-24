@@ -156,8 +156,8 @@ function generate_question(self)
     end
 
     local _get_question = function()
-        local a = math.random(2, 10)
-        local b = math.random(2, 10)
+        local a = math.random(2, 9)
+        local b = math.random(2, 9)
         local exists = true
         local question = ''
 
@@ -165,8 +165,8 @@ function generate_question(self)
             question = a..self.op..b
             exists = _exists(self.question_log, question)
             if exists then
-                a = math.random(2, 10)
-                b = math.random(2, 10)
+                a = math.random(2, 9)
+                b = math.random(2, 9)
             end
         end
 
