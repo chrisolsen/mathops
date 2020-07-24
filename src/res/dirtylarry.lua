@@ -314,7 +314,7 @@ function dirtylarry.radio(self, node, action_id, action, id, value)
         value = id
     end
 
-    local flipbook = 'radio' .. (value == id and '-checked:' or ':') .. (hit and not action.released and 'pressed' or 'normal')
+    local flipbook = 'radio' .. (value == id and '-checked:' or '__') .. (hit and not action.released and 'pressed' or 'normal')
     gui.play_flipbook(node_btn, flipbook)
     return value
 end
