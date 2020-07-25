@@ -8,12 +8,14 @@ function doAction(action)
 end
 
 function onTouch(action_id, action, actionMap)
-    for id, fn in pairs(actionMap) do
-        if hash('touch') == action_id and action.pressed then
+    if hash('touch') == action_id and action.pressed then
+        for id, fn in pairs(actionMap) do
             local item = gui.get_node(id)
             if gui.pick_node(item, action.x, action.y) then
                 fn()
+                return true
             end
         end
     end
+    return false
 end

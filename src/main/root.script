@@ -1,13 +1,22 @@
+require 'src/common'
+local gameState = require('src/state')
+
+ROOT_ID = 'default:/root#root'
+
+function load_proxy(self, proxy_id)
+    if self.current_proxy ~= nil then
+        msg.post(self.current_proxy, 'unload')
+    end
+    msg.post(proxy_id, 'load')
+    self.current_proxy = proxy_id
+end
+
 function init(self)
     msg.post('.', 'acquire_input_focus')
     msg.post('@render:', 'use_fixed_fit_projection', { near = -1, far = 1 })
-    msg.post('#landing_proxy', 'load')
+    load_proxy(self, '#landing_proxy')
 
-    -- this could be later extracted into a *store*
-    self.game_settings = nil
-
-    -- STATES
-    self.state = 'landing'
+    self.current_proxy = nil
 end
 
 function on_message(self, message_id, message, sender)
@@ -17,34 +26,25 @@ function on_message(self, message_id, message, sender)
         return
     end
 
-    -- State handling
     if hash('action') == message_id then
-        if self.state == 'landing' and message.action == 'options:load'  then
-            self.state = 'options'
-            msg.post('#game_options', 'load')
-            msg.post('#landing_proxy', 'unload')
+        if message.action == 'landing:load' then
+            gameState.setRoute('landing')
+            load_proxy(self, '#landing_proxy')
 
-        elseif self.state == 'options' and message.action == 'game:load'  then
-            self.game_settings = message.data
-            self.state = 'game'
-            msg.post('#game_proxy', 'load')
-            msg.post('#game_options', 'unload')
+        elseif message.action == 'options:load' then
+            gameState.setRoute('options')
+            load_proxy(self, '#game_options')
 
-        elseif self.state == 'game' and message.action == 'options:load'  then
-            self.state = 'options'
-            msg.post('#game_options', 'load')
-            msg.post('#game_proxy', 'unload')
+        elseif message.action == 'game:load' then
+            gameState.setRoute('playing')
+            load_proxy(self, '#game_proxy')
 
-        elseif self.state == 'game' and message.action == 'game:settings'  then
-            msg.post('game:/guis#game', 'game:start', self.game_settings)
-
-        elseif self.state == 'options' and message.action == 'landing:load'  then
-            self.state = 'landing'
-            msg.post('#game_options', 'unload')
-            msg.post('#landing_proxy', 'load')
-
+--        elseif message.action == 'game:settings' then
+--            -- TODO: won't need this handler anymore after making the change above
+--            msg.post('game:/guis#game', 'game:start')
+----            load_proxy('#game_options')
         else
-            print('Invalid: state => '..self.state..' action => '..message.action)
+            print('Invalid: action => '..message.action)
         end
     end
 end
