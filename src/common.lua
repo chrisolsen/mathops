@@ -3,10 +3,6 @@
 -- require "my_directory.my_file"
 -- in any script using the functions.
 
-function doAction(action)
-    msg.post('default:/root#root', 'action', { action = action })
-end
-
 function onTouch(action_id, action, actionMap)
     if hash('touch') == action_id and action.pressed then
         for id, fn in pairs(actionMap) do

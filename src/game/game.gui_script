@@ -1,10 +1,8 @@
-local gameState = require('src/state')
-
-local route = 'playing'
+local Game = require('src/game')
+local State = Game.State
 
 function init(self)
-    print('in the game')
-    math.randomseed(os.clock()*1e8)
+    math.randomseed(os.clock() * 1e8)
     msg.post('.', 'acquire_input_focus')
     self.buttons = {
         'btn_choice_1',
@@ -14,8 +12,7 @@ function init(self)
     }
     self.question_log = {};
 
-    local state = gameState.getValues()
-    print('state: ', state.operator)
+    local state = State.getValues()
     self.question_count = state.question_count
     self.op = state.operator
     self.correct_count = 0
@@ -29,22 +26,20 @@ function init(self)
     generate_question(self)
 
     local this = gui.get_node("game:root")
-	gui.set_color(this, vmath.vector4(0))
-	gui.animate(this, gui.PROP_COLOR, vmath.vector4(1,1,1,1), gui.EASING_OUTEXPO, .5, 0)
+    gui.set_color(this, vmath.vector4(0))
+    gui.animate(this, gui.PROP_COLOR, vmath.vector4(1, 1, 1, 1), gui.EASING_OUTEXPO, .5, 0)
 end
 
-function on_message(self, message_id, message, sender)
+function on_message(self, message_id, message, _)
     if hash('answer:touch') == message_id then
         local name = message.name;
-        local text = gui.get_node(name..'/button_text')
-        local text_pos = gui.get_position(text)
-        local block_easing = vmath.vector({0,0,0,0, 1,1,1,1})
+        local text = gui.get_node(name .. '/button_text')
         local num = gui.get_text(text)
-        local btn = gui.get_node(name..'/button')
+        local btn = gui.get_node(name .. '/button')
         local pos = gui.get_position(btn)
-        local question_key = self.a..self.op..self.b
+        local question_key = self.a .. self.op .. self.b
 
-        local post_answer = function(self, node)
+        local post_answer = function(_, node)
             msg.post('#', 'question:next')
             gui.delete_node(node)
         end
@@ -55,8 +50,8 @@ function on_message(self, message_id, message, sender)
             local checkmark = gui.new_box_node(vmath.vector3(pos.x, pos.y, 0), vmath.vector3(205, 185, 0))
             gui.set_texture(checkmark, 'main')
             gui.play_flipbook(checkmark, "correct")
-            gui.animate(checkmark, 'scale', vmath.vector3(1.5,1.5,1), gui.EASING_LINEAR, 0.5)
-            gui.animate(checkmark, 'color', vmath.vector4(1,1,1,0), gui.EASING_LINEAR, 0.5, 0, post_answer)
+            gui.animate(checkmark, 'scale', vmath.vector3(1.5, 1.5, 1), gui.EASING_LINEAR, 0.5)
+            gui.animate(checkmark, 'color', vmath.vector4(1, 1, 1, 0), gui.EASING_LINEAR, 0.5, 0, post_answer)
 
             self.correct_count = self.correct_count + 1
             self.question_log[question_key] = true
@@ -64,8 +59,8 @@ function on_message(self, message_id, message, sender)
             local xmark = gui.new_box_node(vmath.vector3(pos.x, pos.y, 0), vmath.vector3(155, 181, 0))
             gui.set_texture(xmark, 'main')
             gui.play_flipbook(xmark, "incorrect")
-            gui.animate(xmark, 'scale', vmath.vector3(1.5,1.5,1), gui.EASING_LINEAR, 0.5)
-            gui.animate(xmark, 'color', vmath.vector4(1,1,1,0), gui.EASING_LINEAR, 0.5, 0, post_answer)
+            gui.animate(xmark, 'scale', vmath.vector3(1.5, 1.5, 1), gui.EASING_LINEAR, 0.5)
+            gui.animate(xmark, 'color', vmath.vector4(1, 1, 1, 0), gui.EASING_LINEAR, 0.5, 0, post_answer)
 
             self.question_log[question_key] = false
         end
@@ -76,8 +71,7 @@ function on_message(self, message_id, message, sender)
         gui.animate(progress, 'size.x', vmath.vector3(new_width, size.y, 0), gui.EASING_LINEAR, 0.5)
 
         if self.current_question == self.question_count then
-            gameState.setRoute('complete')
-            msg.post('.', 'level_complete:show', { score = self.correct_count / self.question_count * 100 })
+            msg.post('/level_complete', 'level_complete:show', { score = self.correct_count / self.question_count * 100 })
         else
             self.current_question = self.current_question + 1
             self.ready_for_answer = true
@@ -93,26 +87,21 @@ function on_message(self, message_id, message, sender)
         local size = gui.get_size(progress)
         gui.animate(progress, 'size.x', vmath.vector3(50, size.y, 0), gui.EASING_LINEAR, 0.5)
 
-        gameState.setRoute(route)
-
         generate_question(self)
     end
 end
 
 function on_input(self, action_id, action)
-    if gameState.getRoute() ~= route then
-        return
-    end
     onTouch(action_id, action, {
         ['topbar/topbar_back'] = function()
-            doAction('options:load')
+            msg.post('main:/scenes#controller', 'change', { dest = 'options' })
         end
     })
 
     for _, name in pairs(self.buttons) do
         onTouch(action_id, action, {
-            [name..'/button_bg'] = function()
-                msg.post('#', 'answer:touch', { name=name })
+            [name .. '/button_bg'] = function()
+                msg.post('#', 'answer:touch', { name = name })
             end
         })
     end
@@ -127,7 +116,7 @@ function get_random(self)
         local r = math.random(self.answer - 10, self.answer + 10)
         local valid = true
         if r ~= self.answer and r > 0 then
-            for i=1,#self.options do
+            for i = 1, #self.options do
                 if self.options[i] == r then
                     valid = false
                     break
@@ -148,15 +137,11 @@ function generate_question(self)
     -- question was already asked and user got it right
     local _exists = function(table, key)
         for k in pairs(table) do
-            if k == key and table[key] then return true end
+            if k == key and table[key] then
+                return true
+            end
         end
         return false
-    end
-
-    local _len = function(table)
-       local c = 0
-       for k in pairs(table) do c = c + 1 end
-       return c
     end
 
     local _get_question = function()
@@ -166,7 +151,7 @@ function generate_question(self)
         local question = ''
 
         while exists do
-            question = a..self.op..b
+            question = a .. self.op .. b
             exists = _exists(self.question_log, question)
             if exists then
                 a = math.random(2, 9)
@@ -201,11 +186,11 @@ function generate_question(self)
         self.answer = self.a / self.b
     end
 
-    gui.set_text(question, self.a..' '..self.op..' '..self.b..' =')
+    gui.set_text(question, self.a .. ' ' .. self.op .. ' ' .. self.b .. ' =')
 
     self.options = {}
-    local correct_pos = math.random(1,4)
-    for i=1,4 do
+    local correct_pos = math.random(1, 4)
+    for i = 1, 4 do
         local val
         if correct_pos == i then
             val = self.answer
@@ -213,7 +198,7 @@ function generate_question(self)
             val = get_random(self)
         end
         table.insert(self.options, val)
-        local n = gui.get_node(hash('btn_choice_'..i..'/button_text'))
+        local n = gui.get_node(hash('btn_choice_' .. i .. '/button_text'))
         gui.set_text(n, val)
     end
 end

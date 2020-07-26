@@ -1,5 +1,6 @@
 local dirtylarry = require('src/res/dirtylarry')
-local gameState = require('src/state')
+local Game = require('src/game')
+local State = Game.State
 
 function init(self)
 	msg.post('.', 'acquire_input_focus')
@@ -8,16 +9,16 @@ function init(self)
 
 	local this = gui.get_node("options:root")
 	gui.set_color(this, vmath.vector4(0))
-	gui.animate(this, gui.PROP_COLOR, vmath.vector4(1,1,1,1), gui.EASING_OUTEXPO, .5, 0)
+	gui.animate(this, gui.PROP_COLOR, vmath.vector4(1, 1, 1, 1), gui.EASING_OUTEXPO, .5, 0)
 end
 
-function final(self)
+function final(_)
 	msg.post('.', 'release_input_focus')
 end
 
 function on_input(self, action_id, action)
 	-- run twice to ensure the previous value is cleared
-	for i=0,1 do
+	for _ = 0, 1 do
 		self.operator = dirtylarry:radio('op_add', action_id, action, '+', self.operator)
 		self.operator = dirtylarry:radio('op_minus', action_id, action, '-', self.operator)
 		self.operator = dirtylarry:radio('op_times', action_id, action, 'x', self.operator)
@@ -30,15 +31,15 @@ function on_input(self, action_id, action)
 
 	onTouch(action_id, action, {
 		['btn:play/button_bg'] = function()
-			gameState.setValues({
+			State.setValues({
 				operator = self.operator,
 				question_count = self.question_count
 			})
-			doAction('game:load')
+			msg.post('main:/scenes#controller', 'change', { dest = 'game' })
 			msg.post("#", "disable")
 		end,
 		['template/topbar_back'] = function()
-			msg.post('default:/root#root', 'action', { action = 'landing:load' })
+			msg.post('main:/scenes#controller', 'change', { dest = 'landing' })
 		end
 	})
 end
